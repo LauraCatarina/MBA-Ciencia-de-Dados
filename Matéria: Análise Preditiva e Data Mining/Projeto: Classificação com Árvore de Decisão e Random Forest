@@ -1,0 +1,24 @@
+Disciplina: Análise Preditiva e Data Mining
+Base de dados: UCI Heart Disease Dataset (https://www.kaggle.com/datasets/redwankarimsony/heart-disease-data/data)
+
+Resumo das Etapas Realizadas:
+  1. Importação dos dados - Leitura do dataset, visualização e tratamento de valores nulos (limpeza) e conversão da coluna NUM para uma variável binária TARGET, que antes tinham valores de 0 a 4 por grau de gravidade da
+doença, porém só queriamos avaliar a presença ou não de doença cardíaca (0 ou 1).
+  2. Pré-processamento: remoção de colunas irrelevantes (id, dataset, num), transformação de variáveis categóricas (sexo e tipo de dor) em variáveis dummy/binárias (one-hot encoding) e conversão de booleanos (true e false)
+para inteiros.
+  3. Divisão dos dados: separação de teste (20%) e treino (80%) com train_test_split (random_state=42).
+  4. Treinamento dos modelos: primeiro com Árvore de Decisão (DecisionTreeClassifier) e depois com Random Forest (RandomForestClassifier).
+  5. Avaliação dos modelos: Acurácia, Relatório de classificação (precision, recall, f1-score), Matriz de confusão e Visualização da árvore.
+
+Todo o código é comentado em cada passo-a-passo afim de ficar mais didático para o meu aprendizado.
+
+Diferença entre os Modelos:
+| Característica                | Árvore de Decisão                 | Random Forest                                      |
+| ----------------------------- | --------------------------------- | -------------------------------------------------- |
+| Estrutura                     | Uma única árvore                  | Conjunto de múltiplas árvores (ensemble)           |
+| Interpretação                 | Fácil de interpretar e visualizar | Mais difícil de interpretar                        |
+| Variância                     | Alta variância (pode overfitar)   | Reduz variância (melhor generalização)             |
+| Robustez                      | Sensível a outliers e ruído       | Mais robusto a ruído                               |
+| Tempo de treinamento          | Rápido                            | Mais demorado                                      |
+| Acurácia observada no projeto | \~74%                             | \~85%                                              |
+| Uso de aleatoriedade          | Não                               | Sim (bootstraping e seleção aleatória de features) |
