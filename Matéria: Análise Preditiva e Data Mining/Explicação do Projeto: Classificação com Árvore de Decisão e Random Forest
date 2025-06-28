@@ -1,5 +1,11 @@
 Disciplina: Análise Preditiva e Data Mining
 Base de dados: UCI Heart Disease Dataset (https://www.kaggle.com/datasets/redwankarimsony/heart-disease-data/data)
+  Sobre a Dataset: é um conjunto de dados amplamente utilizado em estudos de aprendizado de máquina na área da saúde. Ele reúne informações clínicas de pacientes para prever a presença de doença cardíaca.  
+  O dataset contém variáveis como idade, sexo, pressão arterial, tipo de dor no peito, colesterol, frequência cardíaca máxima, resultados de eletrocardiogramas, entre outros.  
+  A variável alvo é a coluna `num`, que originalmente varia de 0 a 4 (graus de gravidade), mas que foi convertida neste projeto para um problema de classificação binária:  
+  - 0: sem doença cardíaca  
+  - 1: com doença cardíaca (qualquer valor diferente de 0)
+
 
 Resumo das Etapas Realizadas:
   1. Importação dos dados - Leitura do dataset, visualização e tratamento de valores nulos (limpeza) e conversão da coluna NUM para uma variável binária TARGET, que antes tinham valores de 0 a 4 por grau de gravidade da
@@ -7,18 +13,19 @@ doença, porém só queriamos avaliar a presença ou não de doença cardíaca (
   2. Pré-processamento: remoção de colunas irrelevantes (id, dataset, num), transformação de variáveis categóricas (sexo e tipo de dor) em variáveis dummy/binárias (one-hot encoding) e conversão de booleanos (true e false)
 para inteiros.
   3. Divisão dos dados: separação de teste (20%) e treino (80%) com train_test_split (random_state=42).
-  4. Treinamento dos modelos: primeiro com Árvore de Decisão (DecisionTreeClassifier) e depois com Random Forest (RandomForestClassifier).
-  5. Avaliação dos modelos: Acurácia, Relatório de classificação (precision, recall, f1-score), Matriz de confusão e Visualização da árvore.
+  4. Treinamento dos modelos: primeiro com Árvore de Decisão (DecisionTreeClassifier), depois com Random Forest (RandomForestClassifier) e Rede Neural (Sequential, com camadas `Dense` do Keras).
+  5. Avaliação dos modelos: Acurácia, Relatório de classificação (precision, recall, f1-score), Matriz de confusão, Visualização da árvore e Visualização do histórico de perda (loss) da Rede Neural.
 
 Todo o código é comentado em cada passo-a-passo afim de ficar mais didático para o meu aprendizado.
+A introdução da Rede Neural permitiu testar um modelo mais complexo e com potencial de melhor desempenho, reforçando a importância de comparar diferentes abordagens.
 
 Diferença entre os Modelos:
-| Característica                | Árvore de Decisão                 | Random Forest                                      |
-| ----------------------------- | --------------------------------- | -------------------------------------------------- |
-| Estrutura                     | Uma única árvore                  | Conjunto de múltiplas árvores (ensemble)           |
-| Interpretação                 | Fácil de interpretar e visualizar | Mais difícil de interpretar                        |
-| Variância                     | Alta variância (pode overfitar)   | Reduz variância (melhor generalização)             |
-| Robustez                      | Sensível a outliers e ruído       | Mais robusto a ruído                               |
-| Tempo de treinamento          | Rápido                            | Mais demorado                                      |
-| Acurácia observada no projeto | \~74%                             | \~85%                                              |
-| Uso de aleatoriedade          | Não                               | Sim (bootstraping e seleção aleatória de features) |
+| Característica                | Árvore de Decisão                 | Random Forest                                      | Rede Neural
+| ----------------------------- | --------------------------------- | -------------------------------------------------- | ------------------------------------------------------------------|
+| Estrutura                     | Uma única árvore                  | Conjunto de múltiplas árvores (ensemble)           | Camadas de neurônios interligadas (camadas densas)                |
+| Interpretação                 | Fácil de interpretar e visualizar | Mais difícil de interpretar                        | Difícil de interpretar (modelo caixa-preta)                       |
+| Variância                     | Alta variância (pode overfitar)   | Reduz variância (melhor generalização)             | Alta capacidade de generalização (com dados e ajuste adequado)    |
+| Robustez                      | Sensível a outliers e ruído       | Mais robusto a ruído                               | Robusto se bem treinado e com dados balanceados                   |
+| Tempo de treinamento          | Rápido                            | Mais demorado                                      | Alto (depende do número de épocas e da arquitetura)               |
+| Acurácia observada no projeto | \~74%                             | \~85%                                              | \~87%                                                             |   
+| Uso de aleatoriedade          | Não                               | Sim (bootstraping e seleção aleatória de features) | Sim (pesos iniciais aleatórios + backpropagation)                 |
